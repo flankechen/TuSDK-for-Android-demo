@@ -84,7 +84,6 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant-run-support" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/pre-dexed" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/reload-dex" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/res" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/restart-dex" />
@@ -98,13 +97,14 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="bugly_crash_release_2.6.5" level="project" />
     <orderEntry type="module" module-name="TuSDKUIGeeV2" exported="" />
     <orderEntry type="module" module-name="TuSDKUIDefault" exported="" />
-    <orderEntry type="library" exported="" name="TuSDKUIGeeV2-1.1.4" level="project" />
+    <orderEntry type="library" exported="" name="TuSDKUIGeeV2-1.1.5" level="project" />
     <orderEntry type="library" exported="" name="android-support-v7-recyclerview" level="project" />
-    <orderEntry type="library" exported="" name="TuSDKGee-2.0.4" level="project" />
     <orderEntry type="library" exported="" name="android-support-v4-23.1.2" level="project" />
+    <orderEntry type="library" exported="" name="TuSDKGee-2.0.5" level="project" />
+    <orderEntry type="library" exported="" name="TuSDKCore-2.8.1" level="project" />
     <orderEntry type="library" exported="" name="universal-image-loader-1.9.4" level="project" />
-    <orderEntry type="library" exported="" name="TuSDKCore-2.8.0" level="project" />
   </component>
 </module>
