@@ -45,6 +45,12 @@ import org.lasque.tusdkdemo.view.DemoListView;
 import org.lasque.tusdkdemo.view.DemoListView.DemoListItemAction;
 import org.lasque.tusdkdemo.view.DemoListView.DemoListViewDelegate;
 
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.OpenCVLoader;
+
+
+import android.util.Log;
+
 /**
  * @author Clear
  */
@@ -58,12 +64,21 @@ public class TuComponentListActivity extends TuFragmentActivity implements TuSdk
 
 	}
 
+
+
 	/** 初始化控制器 */
 	@Override
 	protected void initActivity()
 	{
 		super.initActivity();
 		this.setRootView(layoutId, 0);
+
+		//init opencv
+		if (!OpenCVLoader.initDebug()) {
+			Log.e(this.getClass().getSimpleName(), "  OpenCVLoader.initDebug(), not working.");
+		} else {
+			Log.d(this.getClass().getSimpleName(), "  OpenCVLoader.initDebug(), working.");
+		}
 	}
 
 	/** 导航栏 实现类 */

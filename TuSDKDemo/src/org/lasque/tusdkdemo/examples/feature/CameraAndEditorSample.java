@@ -24,7 +24,16 @@ import org.lasque.tusdkdemo.R;
 import org.lasque.tusdkdemo.SampleBase;
 import org.lasque.tusdkdemo.SampleGroup.GroupType;
 
+import org.opencv.android.Utils;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import org.opencv.core.Core;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
+
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.util.Log;
 
 /**
  * 拍照 + 编辑示例
@@ -145,8 +154,24 @@ public class CameraAndEditorSample extends SampleBase implements TuCameraFragmen
 		TuEditMultipleComponent component = TuSdkGeeV1.editMultipleCommponent(fragment, delegate);
 		
 		component.componentOption().editFilterOption().setEnableFilterConfig(true);
+
+
+		//control the result.bitmap or data here.
+		Bitmap bmp32 = result.image.copy(Bitmap.Config.ARGB_8888, true);
+		Mat result_mat = new Mat(bmp32.getWidth(), bmp32.getHeight(), CvType.CV_8UC4);
+		Mat result_mat_gray = new Mat(bmp32.getWidth(), bmp32.getHeight(), CvType.CV_8UC1);
+		Utils.bitmapToMat(bmp32, result_mat);
+		//this convert only makes a 4 channel image? only in RGBA ?
+		Log.d(this.getClass().getSimpleName(), "  OPENCV mat channels:" + result_mat.channels());
+		Imgproc.cvtColor(result_mat, result_mat_gray, Imgproc.COLOR_BGRA2GRAY);
+		Log.d(this.getClass().getSimpleName(), "  OPENCV mat gray channels:" + result_mat_gray.channels());
+
+		Mat tmp = new Mat (bmp32.getWidth(), bmp32.getHeight(), CvType.CV_8U, new Scalar(4));
+		Imgproc.cvtColor(result_mat_gray, tmp, Imgproc.COLOR_GRAY2RGBA, 4);
+		Bitmap bmp = Bitmap.createBitmap(tmp.cols(), tmp.rows(), Bitmap.Config.ARGB_8888);
+		Utils.matToBitmap(tmp, bmp);
 		
-		component.setImage(result.image)
+		component.setImage(bmp)
 		// 设置系统照片
 				.setImageSqlInfo(result.imageSqlInfo)
 				// 设置临时文件

@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/TuSDKDemo/TuSDKDemo.iml" filepath="$PROJECT_DIR$/TuSDKDemo/TuSDKDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/TuSDKUIDefault/TuSDKUIDefault.iml" filepath="$PROJECT_DIR$/TuSDKUIDefault/TuSDKUIDefault.iml" />
       <module fileurl="file://$PROJECT_DIR$/TuSDKUIGeeV2/TuSDKUIGeeV2.iml" filepath="$PROJECT_DIR$/TuSDKUIGeeV2/TuSDKUIGeeV2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/openCVLibrary320/openCVLibrary320.iml" filepath="$PROJECT_DIR$/openCVLibrary320/openCVLibrary320.iml" />
     </modules>
   </component>
 </project>

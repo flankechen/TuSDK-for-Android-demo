@@ -1,9 +1,10 @@
 apply plugin: 'android'
 
 dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar')
+    compile fileTree(include: '*.jar', dir: 'libs')
     compile project(':TuSDKUIDefault')
     compile project(':TuSDKUIGeeV2')
+    compile project(':openCVLibrary320')
 }
 
 android {

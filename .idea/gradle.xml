@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/TuSDKDemo" />
             <option value="$PROJECT_DIR$/TuSDKUIDefault" />
             <option value="$PROJECT_DIR$/TuSDKUIGeeV2" />
+            <option value="$PROJECT_DIR$/openCVLibrary320" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
