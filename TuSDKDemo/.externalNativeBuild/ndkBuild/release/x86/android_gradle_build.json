@@ -1,0 +1,33 @@
+{
+  "buildFiles": [
+    "E:\\proj\\GitHub\\TuSDK-for-Android-demo\\TuSDKDemo\\src\\jni\\Android.mk",
+    "E:\\proj\\GitHub\\TuSDK-for-Android-demo\\TuSDKDemo\\src\\jni\\Application.mk"
+  ],
+  "cleanCommands": [
+    "E:\\android\\android-sdk-windows_jf\\ndk-bundle\\ndk-build.cmd NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003dE:\\proj\\GitHub\\TuSDK-for-Android-demo\\TuSDKDemo\\src\\jni\\Android.mk NDK_APPLICATION_MK\u003dE:\\proj\\GitHub\\TuSDK-for-Android-demo\\TuSDKDemo\\src\\jni\\Application.mk APP_ABI\u003dx86 NDK_ALL_ABIS\u003dx86 NDK_DEBUG\u003d0 APP_PLATFORM\u003dandroid-9 NDK_OUT\u003dE:/proj/GitHub/TuSDK-for-Android-demo/TuSDKDemo/build/intermediates/ndkBuild/release/obj NDK_LIBS_OUT\u003dE:\\proj\\GitHub\\TuSDK-for-Android-demo\\TuSDKDemo\\build\\intermediates\\ndkBuild\\release\\lib clean"
+  ],
+  "libraries": {
+    "detection_based_tracker-release-x86": {
+      "buildCommand": "E:\\android\\android-sdk-windows_jf\\ndk-bundle\\ndk-build.cmd NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003dE:\\proj\\GitHub\\TuSDK-for-Android-demo\\TuSDKDemo\\src\\jni\\Android.mk NDK_APPLICATION_MK\u003dE:\\proj\\GitHub\\TuSDK-for-Android-demo\\TuSDKDemo\\src\\jni\\Application.mk APP_ABI\u003dx86 NDK_ALL_ABIS\u003dx86 NDK_DEBUG\u003d0 APP_PLATFORM\u003dandroid-9 NDK_OUT\u003dE:/proj/GitHub/TuSDK-for-Android-demo/TuSDKDemo/build/intermediates/ndkBuild/release/obj NDK_LIBS_OUT\u003dE:\\proj\\GitHub\\TuSDK-for-Android-demo\\TuSDKDemo\\build\\intermediates\\ndkBuild\\release\\lib E:/proj/GitHub/TuSDK-for-Android-demo/TuSDKDemo/build/intermediates/ndkBuild/release/obj/local/x86/libdetection_based_tracker.so",
+      "toolchain": "toolchain-x86",
+      "abi": "x86",
+      "artifactName": "detection_based_tracker",
+      "files": [
+        {
+          "src": "E:\\proj\\GitHub\\TuSDK-for-Android-demo\\TuSDKDemo\\src\\jni\\DetectionBasedTracker_jni.cpp",
+          "flags": "\"-gcc-toolchain\" \"E:/android/android-sdk-windows_jf/ndk-bundle/build//../toolchains/x86-4.9/prebuilt/windows-x86_64\" \"-target\" \"i686-none-linux-android\" \"-ffunction-sections\" \"-funwind-tables\" \"-fstack-protector-strong\" \"-fPIC\" \"-Wno-invalid-command-line-argument\" \"-Wno-unused-command-line-argument\" \"-no-canonical-prefixes\" \"-g\" \"-fno-exceptions\" \"-fno-rtti\" \"-O2\" \"-DNDEBUG\" \"-I../OpenCVjniSDK/native/jni/include/opencv\" \"-I../OpenCVjniSDK/native/jni/include\" \"-IE:/proj/GitHub/TuSDK-for-Android-demo/TuSDKDemo/src/jni\" \"-IE:/android/android-sdk-windows_jf/ndk-bundle/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\" \"-IE:/android/android-sdk-windows_jf/ndk-bundle/build//../sources/cxx-stl/gnu-libstdc++/4.9/libs/x86/include\" \"-IE:/android/android-sdk-windows_jf/ndk-bundle/build//../sources/cxx-stl/gnu-libstdc++/4.9/include/backward\" \"-IE:/proj/GitHub/TuSDK-for-Android-demo/TuSDKDemo/src/jni\" \"-frtti\" \"-fexceptions\" \"-DANDROID\" \"-fPIC\" \"-DANDROID\" \"-fsigned-char\" \"-D__ANDROID_API__\u003d14\" \"-Wa,--noexecstack\" \"-Wformat\" \"-Werror\u003dformat-security\" \"-mstackrealign\" \"--sysroot\" \"E:/android/android-sdk-windows_jf/ndk-bundle/build//../sysroot\" \"-isystem\" \"E:/android/android-sdk-windows_jf/ndk-bundle/build//../sysroot/usr/include/i686-linux-android\""
+        }
+      ],
+      "output": "E:\\proj\\GitHub\\TuSDK-for-Android-demo\\TuSDKDemo\\build\\intermediates\\ndkBuild\\release\\obj\\local\\x86\\libdetection_based_tracker.so"
+    }
+  },
+  "toolchains": {
+    "toolchain-x86": {
+      "cppCompilerExecutable": "E:\\android\\android-sdk-windows_jf\\ndk-bundle\\build\\..\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}

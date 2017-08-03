@@ -47,6 +47,7 @@ public class CameraAndEditorSample extends SampleBase implements TuCameraFragmen
 		super(GroupType.FeatureSample, R.string.sample_comp_CameraAndEditor);
 	}
 
+
 	@Override
 	public void showSample(Activity activity)
 	{
