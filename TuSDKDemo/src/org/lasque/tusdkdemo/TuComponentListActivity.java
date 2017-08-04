@@ -50,7 +50,7 @@ import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
 import org.opencv.objdetect.CascadeClassifier;
-import org.lasque.tusdkdemo.OpenCV.DetectionBasedTracker;
+import org.opencv.samples.facedetect.DetectionBasedTracker;
 
 
 import android.util.Log;
@@ -105,7 +105,7 @@ public class TuComponentListActivity extends TuFragmentActivity implements TuSdk
 						} else
 							Log.i(TAG, "Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
 
-						//mNativeDetector = new DetectionBasedTracker(mCascadeFile.getAbsolutePath(), 0);
+						mNativeDetector = new DetectionBasedTracker(mCascadeFile.getAbsolutePath(), 0);
 
 						cascadeDir.delete();
 

@@ -1,4 +1,4 @@
-package org.lasque.tusdkdemo.OpenCV;
+package org.opencv.samples.facedetect;
 
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
