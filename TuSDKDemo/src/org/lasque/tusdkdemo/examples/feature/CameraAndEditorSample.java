@@ -27,13 +27,20 @@ import org.lasque.tusdkdemo.SampleGroup.GroupType;
 import org.opencv.android.Utils;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.core.Core;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
+import org.opencv.objdetect.CascadeClassifier;
+import org.opencv.samples.facedetect.DetectionBasedTracker;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * 拍照 + 编辑示例
@@ -42,6 +49,11 @@ import android.util.Log;
  */
 public class CameraAndEditorSample extends SampleBase implements TuCameraFragmentDelegate
 {
+	private File mCascadeFile;
+	private CascadeClassifier mJavaDetector;
+	private DetectionBasedTracker  mNativeDetector;
+	private static final String    TAG                 = "OCVSample::Activity";
+
 	public CameraAndEditorSample()
 	{
 		super(GroupType.FeatureSample, R.string.sample_comp_CameraAndEditor);
@@ -51,6 +63,38 @@ public class CameraAndEditorSample extends SampleBase implements TuCameraFragmen
 	@Override
 	public void showSample(Activity activity)
 	{
+		//try to load opencv cascades
+		try {
+			// load cascade file from application resources
+			InputStream is = activity.getResources().openRawResource(R.raw.visionary_net_cat_cascade_web_lbp);
+			File cascadeDir = activity.getDir("cascade", Context.MODE_PRIVATE);
+			mCascadeFile = new File(cascadeDir, "visionary_net_cat_cascade_web_lbp.xml");
+			FileOutputStream os = new FileOutputStream(mCascadeFile);
+
+			byte[] buffer = new byte[4096];
+			int bytesRead;
+			while ((bytesRead = is.read(buffer)) != -1) {
+				os.write(buffer, 0, bytesRead);
+			}
+			is.close();
+			os.close();
+
+			mJavaDetector = new CascadeClassifier(mCascadeFile.getAbsolutePath());
+			if (mJavaDetector.empty()) {
+				Log.e(TAG, "Failed to load cascade classifier");
+				mJavaDetector = null;
+			} else
+				Log.i(TAG, "Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
+
+			mNativeDetector = new DetectionBasedTracker(mCascadeFile.getAbsolutePath(), 0);
+
+			cascadeDir.delete();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			Log.e(TAG, "Failed to load cascade. Exception thrown: " + e);
+		}
+
 		showCamera(activity);
 	}
 	

@@ -11,6 +11,7 @@ package org.lasque.tusdkdemo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
@@ -60,6 +61,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+
 /**
  * @author Clear
  */
@@ -67,9 +69,6 @@ public class TuComponentListActivity extends TuFragmentActivity implements TuSdk
 {
 	/** 布局ID */
 	public static final int layoutId = R.layout.demo_component_list_activity;
-	private File                   mCascadeFile;
-	private CascadeClassifier      mJavaDetector;
-	private DetectionBasedTracker  mNativeDetector;
 	private static final String    TAG                 = "OCVSample::Activity";
 
 	private BaseLoaderCallback  mLoaderCallback = new BaseLoaderCallback(this) {
@@ -82,37 +81,6 @@ public class TuComponentListActivity extends TuFragmentActivity implements TuSdk
 
 					// Load native library after(!) OpenCV initialization
 					System.loadLibrary("detection_based_tracker");
-
-					try {
-						// load cascade file from application resources
-						InputStream is = getResources().openRawResource(R.raw.visionary_net_cat_cascade_web_lbp);
-						File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
-						mCascadeFile = new File(cascadeDir, "visionary_net_cat_cascade_web_lbp.xml");
-						FileOutputStream os = new FileOutputStream(mCascadeFile);
-
-						byte[] buffer = new byte[4096];
-						int bytesRead;
-						while ((bytesRead = is.read(buffer)) != -1) {
-							os.write(buffer, 0, bytesRead);
-						}
-						is.close();
-						os.close();
-
-						mJavaDetector = new CascadeClassifier(mCascadeFile.getAbsolutePath());
-						if (mJavaDetector.empty()) {
-							Log.e(TAG, "Failed to load cascade classifier");
-							mJavaDetector = null;
-						} else
-							Log.i(TAG, "Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
-
-						mNativeDetector = new DetectionBasedTracker(mCascadeFile.getAbsolutePath(), 0);
-
-						cascadeDir.delete();
-
-					} catch (IOException e) {
-						e.printStackTrace();
-						Log.e(TAG, "Failed to load cascade. Exception thrown: " + e);
-					}
 
 				} break;
 				default:
@@ -278,6 +246,7 @@ public class TuComponentListActivity extends TuFragmentActivity implements TuSdk
 				// 直接启动 指定Activity
 				if (sample.getClass() == SampleActivityBase.class)
 				{
+					//pass detection tracker to that sample activity,
 					Intent intent = new Intent(this, ((SampleActivityBase) sample).activityClazz);
 					this.startActivity(intent);
 				}
