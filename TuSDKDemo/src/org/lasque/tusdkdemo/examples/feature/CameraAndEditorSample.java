@@ -27,7 +27,10 @@ import org.lasque.tusdkdemo.SampleGroup.GroupType;
 import org.opencv.android.Utils;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfRect;
+import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
+import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.samples.facedetect.DetectionBasedTracker;
@@ -53,6 +56,10 @@ public class CameraAndEditorSample extends SampleBase implements TuCameraFragmen
 	private CascadeClassifier mJavaDetector;
 	private DetectionBasedTracker  mNativeDetector;
 	private static final String    TAG                 = "OCVSample::Activity";
+	private static final Scalar    FACE_RECT_COLOR     = new Scalar(0, 255, 0, 255);
+	private float                  mRelativeFaceSize   = 0.1f;
+	private int                    mAbsoluteFaceSize   = 0;
+
 
 	public CameraAndEditorSample()
 	{
@@ -101,6 +108,9 @@ public class CameraAndEditorSample extends SampleBase implements TuCameraFragmen
 	private void showCamera(Activity activity)
 	{
 		if (activity == null) return;
+
+		//
+		mNativeDetector.start();
 
 		// 如果不支持摄像头显示警告信息
 		if (CameraHelper.showAlertIfNotSupportCamera(activity)) return;
@@ -207,14 +217,44 @@ public class CameraAndEditorSample extends SampleBase implements TuCameraFragmen
 		Mat result_mat_gray = new Mat(bmp32.getWidth(), bmp32.getHeight(), CvType.CV_8UC1);
 		Utils.bitmapToMat(bmp32, result_mat);
 		//this convert only makes a 4 channel image? only in RGBA ?
-		Log.d(this.getClass().getSimpleName(), "  OPENCV mat channels:" + result_mat.channels());
+		//Log.d(this.getClass().getSimpleName(), "  OPENCV mat channels:" + result_mat.channels());
 		Imgproc.cvtColor(result_mat, result_mat_gray, Imgproc.COLOR_BGRA2GRAY);
-		Log.d(this.getClass().getSimpleName(), "  OPENCV mat gray channels:" + result_mat_gray.channels());
+		//Log.d(this.getClass().getSimpleName(), "  OPENCV mat gray channels:" + result_mat_gray.channels());
 
-		Mat tmp = new Mat (bmp32.getWidth(), bmp32.getHeight(), CvType.CV_8U, new Scalar(4));
-		Imgproc.cvtColor(result_mat_gray, tmp, Imgproc.COLOR_GRAY2RGBA, 4);
-		Bitmap bmp = Bitmap.createBitmap(tmp.cols(), tmp.rows(), Bitmap.Config.ARGB_8888);
-		Utils.matToBitmap(tmp, bmp);
+		//face detect
+
+		if (mAbsoluteFaceSize == 0) {
+			int height = result_mat_gray.rows();
+			if (Math.round(height * mRelativeFaceSize) > 0) {
+				mAbsoluteFaceSize = Math.round(height * mRelativeFaceSize);
+			}
+			Log.d(this.getClass().getSimpleName(), "  OPENCV absolute face size:"+mAbsoluteFaceSize);
+			mNativeDetector.setMinFaceSize(mAbsoluteFaceSize);
+		}
+
+		MatOfRect faces = new MatOfRect();
+//		if (mNativeDetector != null)
+//			mNativeDetector.detect(result_mat_gray, faces);
+
+		if (mJavaDetector != null)
+			mJavaDetector.detectMultiScale(result_mat_gray, faces, 1.1, 2, 2, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
+					new Size(mAbsoluteFaceSize, mAbsoluteFaceSize), new Size());
+
+		Rect[] facesArray = faces.toArray();
+		Log.d(this.getClass().getSimpleName(), "  OPENCV native detect " + facesArray.length + " cats");
+		for (int i = 0; i < facesArray.length; i++)
+			Imgproc.rectangle(result_mat, facesArray[i].tl(), facesArray[i].br(), FACE_RECT_COLOR, 3);
+
+		//convert the  mat back to ARGB8888 bitmap to show.
+//		Mat tmp = new Mat (bmp32.getWidth(), bmp32.getHeight(), CvType.CV_8U, new Scalar(4));
+//		Imgproc.cvtColor(result_mat_gray, tmp, Imgproc.COLOR_GRAY2RGBA, 4);
+//		Bitmap bmp = Bitmap.createBitmap(tmp.cols(), tmp.rows(), Bitmap.Config.ARGB_8888);
+//		Utils.matToBitmap(tmp, bmp);
+
+		Bitmap bmp = Bitmap.createBitmap(result_mat.cols(), result_mat.rows(), Bitmap.Config.ARGB_8888);
+		Utils.matToBitmap(result_mat, bmp);
+
+		mNativeDetector.stop();
 		
 		component.setImage(bmp)
 		// 设置系统照片
